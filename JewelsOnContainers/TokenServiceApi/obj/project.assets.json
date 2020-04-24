@@ -12704,11 +12704,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Admin\\source\\repos\\JewelsOnContainers\\TokenServiceApi\\TokenServiceApi.csproj",
+      "projectUniqueName": "C:\\Users\\Admin\\Desktop\\Git\\WebApplication-JewelsOnContainer-MicroServices-\\JewelsOnContainers\\TokenServiceApi\\TokenServiceApi.csproj",
       "projectName": "TokenServiceApi",
-      "projectPath": "C:\\Users\\Admin\\source\\repos\\JewelsOnContainers\\TokenServiceApi\\TokenServiceApi.csproj",
+      "projectPath": "C:\\Users\\Admin\\Desktop\\Git\\WebApplication-JewelsOnContainer-MicroServices-\\JewelsOnContainers\\TokenServiceApi\\TokenServiceApi.csproj",
       "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Admin\\source\\repos\\JewelsOnContainers\\TokenServiceApi\\obj\\",
+      "outputPath": "C:\\Users\\Admin\\Desktop\\Git\\WebApplication-JewelsOnContainer-MicroServices-\\JewelsOnContainers\\TokenServiceApi\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\"

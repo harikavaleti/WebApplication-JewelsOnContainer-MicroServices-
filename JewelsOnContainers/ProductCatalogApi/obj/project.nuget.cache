@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ZEpZcxsaI1/HqnZoqshyvzn02wdDKlFn5cMXueYmeFH5aALFfA+hExSz0/XXcDZ+ZFnRuPsk05q8ZnYOY8LwQg==",
+  "dgSpecHash": "6KWtzLMatJ/kgk5Ayb2GRh/HYQNvA1//pB3RkSirnA8yhFsidKPVzBa2VJHwxo1BqPuDAXoOu+PJR1W1dfYy1g==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Admin\\source\\repos\\JewelsOnContainers\\ProductCatalogApi\\ProductCatalogApi.csproj",
+  "projectFilePath": "C:\\Users\\Admin\\Desktop\\Git\\WebApplication-JewelsOnContainer-MicroServices-\\JewelsOnContainers\\ProductCatalogApi\\ProductCatalogApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Admin\\.nuget\\packages\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\microsoft.aspnetcore.razor\\2.2.0\\microsoft.aspnetcore.razor.2.2.0.nupkg.sha512",

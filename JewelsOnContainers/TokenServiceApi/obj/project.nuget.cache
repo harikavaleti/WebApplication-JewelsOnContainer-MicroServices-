@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "XJbG7GGg/UWX/6SVx0iMKwL353IkUa23Zo3tJWuZ3alIlJ/MlbRPv48afwuU3KSnhjTXmG7AkMd5EYrjkYAYwQ==",
+  "dgSpecHash": "B3s/f1VlnOJoARSatCVf19KQYrpHaRyqhViLKDDxuYvrJ92PwYs8utfhJZrLzIQ2VuceMx5aal6kcK7S4kxD6Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Admin\\source\\repos\\JewelsOnContainers\\TokenServiceApi\\TokenServiceApi.csproj",
+  "projectFilePath": "C:\\Users\\Admin\\Desktop\\Git\\WebApplication-JewelsOnContainer-MicroServices-\\JewelsOnContainers\\TokenServiceApi\\TokenServiceApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Admin\\.nuget\\packages\\identitymodel\\3.6.1\\identitymodel.3.6.1.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\identityserver4\\2.2.0\\identityserver4.2.2.0.nupkg.sha512",

@@ -6461,11 +6461,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Admin\\source\\repos\\JewelsOnContainers\\WebMVC\\WebMVC.csproj",
+      "projectUniqueName": "C:\\Users\\Admin\\Desktop\\Git\\WebApplication-JewelsOnContainer-MicroServices-\\JewelsOnContainers\\WebMVC\\WebMVC.csproj",
       "projectName": "WebMVC",
-      "projectPath": "C:\\Users\\Admin\\source\\repos\\JewelsOnContainers\\WebMVC\\WebMVC.csproj",
+      "projectPath": "C:\\Users\\Admin\\Desktop\\Git\\WebApplication-JewelsOnContainer-MicroServices-\\JewelsOnContainers\\WebMVC\\WebMVC.csproj",
       "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Admin\\source\\repos\\JewelsOnContainers\\WebMVC\\obj\\",
+      "outputPath": "C:\\Users\\Admin\\Desktop\\Git\\WebApplication-JewelsOnContainer-MicroServices-\\JewelsOnContainers\\WebMVC\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\"

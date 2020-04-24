@@ -20,6 +20,7 @@ namespace WebMVC.Controllers
         {
             var itemsOnPage = 10;
 
+            
             var catalog = await _service.GetCatalogItemsAsync(page ?? 0, itemsOnPage, brandFilterapplied, typesFilterApplied);
            
             var itemsonPage = (catalog.Count);

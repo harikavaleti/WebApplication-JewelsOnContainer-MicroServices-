@@ -8492,11 +8492,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Admin\\source\\repos\\JewelsOnContainers\\ProductCatalogApi\\ProductCatalogApi.csproj",
+      "projectUniqueName": "C:\\Users\\Admin\\Desktop\\Git\\WebApplication-JewelsOnContainer-MicroServices-\\JewelsOnContainers\\ProductCatalogApi\\ProductCatalogApi.csproj",
       "projectName": "ProductCatalogApi",
-      "projectPath": "C:\\Users\\Admin\\source\\repos\\JewelsOnContainers\\ProductCatalogApi\\ProductCatalogApi.csproj",
+      "projectPath": "C:\\Users\\Admin\\Desktop\\Git\\WebApplication-JewelsOnContainer-MicroServices-\\JewelsOnContainers\\ProductCatalogApi\\ProductCatalogApi.csproj",
       "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Admin\\source\\repos\\JewelsOnContainers\\ProductCatalogApi\\obj\\",
+      "outputPath": "C:\\Users\\Admin\\Desktop\\Git\\WebApplication-JewelsOnContainer-MicroServices-\\JewelsOnContainers\\ProductCatalogApi\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\"

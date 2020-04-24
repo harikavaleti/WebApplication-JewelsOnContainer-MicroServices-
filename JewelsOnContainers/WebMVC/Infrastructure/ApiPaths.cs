@@ -15,8 +15,8 @@ namespace WebMVC.Infrastructure
 
                 if(brand.HasValue || type.HasValue)
                 {
-                    var brandQs = (brand.HasValue) ? brand.Value.ToString() : "null";
-                    var typeQs = (type.HasValue) ? type.Value.ToString() : "null";
+                    var brandQs = (brand.HasValue) ? brand.Value.ToString() : "-1";
+                    var typeQs = (type.HasValue) ? type.Value.ToString() : "-1";
                     filterQs = $"/type/{typeQs}/brand/{brandQs}";
                 }
 

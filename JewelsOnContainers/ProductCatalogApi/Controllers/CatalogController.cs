@@ -58,11 +58,11 @@ namespace ProductCatalogApi.Controllers
 
             if (catalogTypeId.HasValue)
             {
-                root = root.Where(c => c.CatalogTypeId == catalogTypeId);
+                root = root.Where(c => c.CatalogTypeId == catalogTypeId || catalogTypeId == -1);
             }
             if (catalogBrandId.HasValue)
             {
-                root = root.Where(c => c.CatalogBrandId == catalogBrandId);
+                root = root.Where(c => c.CatalogBrandId == catalogBrandId || catalogBrandId == -1);
             }
             var itemsCount = await root.LongCountAsync();
 
