@@ -1,0 +1,10 @@
+C:\Users\Admin\Desktop\Git\WebApplication-JewelsOnContainer-MicroServices-\JewelsOnContainers\CartApi\bin\Debug\netcoreapp3.1\appsettings.Development.json
+C:\Users\Admin\Desktop\Git\WebApplication-JewelsOnContainer-MicroServices-\JewelsOnContainers\CartApi\bin\Debug\netcoreapp3.1\appsettings.json
+C:\Users\Admin\Desktop\Git\WebApplication-JewelsOnContainer-MicroServices-\JewelsOnContainers\CartApi\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
+C:\Users\Admin\Desktop\Git\WebApplication-JewelsOnContainer-MicroServices-\JewelsOnContainers\CartApi\bin\Debug\netcoreapp3.1\CartApi.exe
+C:\Users\Admin\Desktop\Git\WebApplication-JewelsOnContainer-MicroServices-\JewelsOnContainers\CartApi\obj\Debug\netcoreapp3.1\CartApi.csprojAssemblyReference.cache
+C:\Users\Admin\Desktop\Git\WebApplication-JewelsOnContainer-MicroServices-\JewelsOnContainers\CartApi\obj\Debug\netcoreapp3.1\CartApi.AssemblyInfoInputs.cache
+C:\Users\Admin\Desktop\Git\WebApplication-JewelsOnContainer-MicroServices-\JewelsOnContainers\CartApi\obj\Debug\netcoreapp3.1\CartApi.AssemblyInfo.cs
+C:\Users\Admin\Desktop\Git\WebApplication-JewelsOnContainer-MicroServices-\JewelsOnContainers\CartApi\obj\Debug\netcoreapp3.1\CartApi.RazorTargetAssemblyInfo.cache
+C:\Users\Admin\Desktop\Git\WebApplication-JewelsOnContainer-MicroServices-\JewelsOnContainers\CartApi\obj\Debug\netcoreapp3.1\staticwebassets\CartApi.StaticWebAssets.Manifest.cache
+C:\Users\Admin\Desktop\Git\WebApplication-JewelsOnContainer-MicroServices-\JewelsOnContainers\CartApi\obj\Debug\netcoreapp3.1\staticwebassets\CartApi.StaticWebAssets.xml

@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "6RU5YUinsfSekmyKarK3L590jDyX0aHvMzuQCGkDwepajGx3pbcYak/7z6GLrM9dgRIQyBB4+k0M0kRSYTu3Yw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Admin\\Desktop\\Git\\WebApplication-JewelsOnContainer-MicroServices-\\JewelsOnContainers\\CartApi\\CartApi.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Admin\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.10.8\\microsoft.visualstudio.azure.containers.tools.targets.1.10.8.nupkg.sha512"
+  ],
+  "logs": []
+}
