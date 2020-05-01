@@ -1,0 +1,103 @@
+networks:
+  backend: {}
+  frontend: {}
+services:
+  basket.data:
+    container_name: basketdata
+    image: redis
+    networks:
+      backend: null
+    ports:
+    - published: 6210
+      target: 6379
+  cart:
+    build:
+      context: C:\Users\Admin\Desktop\Git\WebApplication-JewelsOnContainer-MicroServices-\JewelsOnContainers\CartApi
+      dockerfile: Dockerfile
+    container_name: cartapi
+    depends_on:
+    - basket.data
+    - tokenserver
+    environment:
+      ConnectionString: basket.data
+      IdentityUrl: http://192.168.0.10:6700
+    image: jewels/cartapi
+    networks:
+      backend: null
+      frontend: null
+    ports:
+    - published: 8801
+      target: 80
+  catalogservice:
+    build:
+      context: C:\Users\Admin\Desktop\Git\WebApplication-JewelsOnContainer-MicroServices-\JewelsOnContainers\ProductCatalogApi
+      dockerfile: Dockerfile
+    container_name: jewelscatalogapi
+    depends_on:
+    - mssqlserver
+    environment:
+      DatabaseName: CatalogDb
+      DatabasePassword: ProductApi(!)
+      DatabaseServer: mssqlServer
+      DatabaseUser: sa
+      ExternalCatalogBaseUrl: http://localhost:8800
+    image: jewels/catalogserviceapi
+    networks:
+      backend: null
+      frontend: null
+    ports:
+    - published: 8800
+      target: 80
+  mssqlserver:
+    container_name: jewelssqlserver
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: ProductApi(!)
+    image: microsoft/mssql-server-linux:latest
+    networks:
+      backend: null
+    ports:
+    - published: 1448
+      target: 1433
+  tokenserver:
+    build:
+      context: C:\Users\Admin\Desktop\Git\WebApplication-JewelsOnContainer-MicroServices-\JewelsOnContainers\TokenServiceApi
+      dockerfile: Dockerfile
+    container_name: tokenserviceapi
+    depends_on:
+    - mssqlserver
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      MvcClient: http://localhost:5210
+    image: jewels/tokenapi
+    logging:
+      driver: json-file
+      options:
+        max-file: '10'
+        max-size: 200k
+    networks:
+      backend: null
+      frontend: null
+    ports:
+    - published: 6700
+      target: 80
+  webmvc:
+    build:
+      context: C:\Users\Admin\Desktop\Git\WebApplication-JewelsOnContainer-MicroServices-\JewelsOnContainers\webmvc
+      dockerfile: Dockerfile
+    container_name: webshop
+    depends_on:
+    - catalogservice
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      CallBackUrl: http://localhost:5210
+      CartUrl: http://cart
+      CatalogUrl: http://catalogservice
+      IdentityUrl: http://192.168.0.10:6700
+    image: jewels/webmvc
+    networks:
+      frontend: null
+    ports:
+    - published: 5210
+      target: 80
+version: '3.4'
