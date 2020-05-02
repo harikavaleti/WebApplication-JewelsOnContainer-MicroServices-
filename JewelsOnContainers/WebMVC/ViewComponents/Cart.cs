@@ -9,17 +9,17 @@ using WebMVC.ViewModels;
 
 namespace WebMVC.ViewComponents
 {
-    public class Cart : ViewComponent
+    public class Cart:ViewComponent
     {
-        private readonly ICartService _cartService;
-        public Cart(ICartService cartService) => _cartService = cartService;
+        private readonly ICartService _cartSrvc;
+        public Cart(ICartService cartService) => _cartSrvc = cartService;
 
         public async Task<IViewComponentResult> InvokeAsync(ApplicationUser user)
         {
             var vm = new CartComponentViewModel();
             try
             {
-                var cart = await _cartService.GetCart(user);
+                var cart = await _cartSrvc.GetCart(user);
 
                 vm.ItemsInCart = cart.Items.Count;
                 vm.TotalCost = cart.Total();

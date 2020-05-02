@@ -246,3 +246,9 @@ C:\Users\Admin\Desktop\Git\WebApplication-JewelsOnContainer-MicroServices-\Jewel
 C:\Users\Admin\Desktop\Git\WebApplication-JewelsOnContainer-MicroServices-\JewelsOnContainers\WebMVC\obj\Debug\netcoreapp3.1\WebMVC.dll
 C:\Users\Admin\Desktop\Git\WebApplication-JewelsOnContainer-MicroServices-\JewelsOnContainers\WebMVC\obj\Debug\netcoreapp3.1\WebMVC.pdb
 C:\Users\Admin\Desktop\Git\WebApplication-JewelsOnContainer-MicroServices-\JewelsOnContainers\WebMVC\obj\Debug\netcoreapp3.1\WebMVC.genruntimeconfig.cache
+C:\Users\Admin\Desktop\Git\WebApplication-JewelsOnContainer-MicroServices-\JewelsOnContainers\WebMVC\obj\Debug\netcoreapp3.1\WebMVC.csproj.CoreCompileInputs.cache
+C:\Users\Admin\Desktop\Git\WebApplication-JewelsOnContainer-MicroServices-\JewelsOnContainers\WebMVC\obj\Debug\netcoreapp3.1\WebMVC.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Admin\Desktop\Git\WebApplication-JewelsOnContainer-MicroServices-\JewelsOnContainers\WebMVC\obj\Debug\netcoreapp3.1\Razor\Views\Cart\Index.cshtml.g.cs
+C:\Users\Admin\Desktop\Git\WebApplication-JewelsOnContainer-MicroServices-\JewelsOnContainers\WebMVC\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\CartList\Default.cshtml.g.cs
+C:\Users\Admin\Desktop\Git\WebApplication-JewelsOnContainer-MicroServices-\JewelsOnContainers\WebMVC\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\Cart\Default.cshtml.g.cs
+C:\Users\Admin\Desktop\Git\WebApplication-JewelsOnContainer-MicroServices-\JewelsOnContainers\WebMVC\bin\Debug\netcoreapp3.1\Polly.dll

@@ -2,6 +2,56 @@ networks:
   backend: {}
   frontend: {}
 services:
+  basket.data:
+    container_name: basketdata
+    image: redis
+    networks:
+      backend: {}
+    ports:
+    - published: 6210
+      target: 6379
+  cart:
+    build:
+      context: C:\Users\Admin\Desktop\Git\WebApplication-JewelsOnContainer-MicroServices-\JewelsOnContainers\CartApi
+      dockerfile: Dockerfile
+      labels:
+        com.microsoft.created-by: visual-studio
+        com.microsoft.visual-studio.project-name: CartApi
+      target: base
+    container_name: cartapi
+    depends_on:
+    - basket.data
+    - tokenserver
+    entrypoint: tail -f /dev/null
+    environment:
+      ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS: "true"
+      ConnectionString: basket.data
+      DOTNET_USE_POLLING_FILE_WATCHER: '1'
+      IdentityUrl: http://192.168.0.10:6700
+      NUGET_FALLBACK_PACKAGES: /root/.nuget/fallbackpackages
+    image: jewels/cartapi:dev
+    labels:
+      com.microsoft.visualstudio.debuggee.arguments: ' --additionalProbingPath /root/.nuget/packages
+        --additionalProbingPath /root/.nuget/fallbackpackages  "/app/bin/Debug/netcoreapp3.1/CartApi.dll"'
+      com.microsoft.visualstudio.debuggee.killprogram: /bin/sh -c "if PID=$$(pidof
+        dotnet); then kill $$PID; fi"
+      com.microsoft.visualstudio.debuggee.program: dotnet
+      com.microsoft.visualstudio.debuggee.workingdirectory: /app
+    networks:
+      backend: {}
+      frontend: {}
+    ports:
+    - published: 8801
+      target: 80
+    tty: true
+    volumes:
+    - C:\Users\Admin\Desktop\Git\WebApplication-JewelsOnContainer-MicroServices-\JewelsOnContainers\CartApi:/app:rw
+    - C:\Users\Admin\vsdbg\vs2017u5:/remote_debugger:rw
+    - C:\Users\Admin\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\Admin\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+    - C:\Microsoft\Xamarin\NuGet:/root/.nuget/fallbackpackages:ro
+    - C:\Users\Admin\.nuget\packages:/root/.nuget/packages:ro
+    - C:\Users\Admin\Desktop\Git\WebApplication-JewelsOnContainer-MicroServices-\JewelsOnContainers\CartApi:/src:rw
   catalogservice:
     build:
       context: C:\Users\Admin\Desktop\Git\WebApplication-JewelsOnContainer-MicroServices-\JewelsOnContainers\ProductCatalogApi
@@ -113,12 +163,15 @@ services:
       target: base
     container_name: webshop
     depends_on:
+    - cart
     - catalogservice
+    - tokenserver
     entrypoint: tail -f /dev/null
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS: "true"
       CallBackUrl: http://localhost:5210
+      CartUrl: http://cart
       CatalogUrl: http://catalogservice
       DOTNET_USE_POLLING_FILE_WATCHER: '1'
       IdentityUrl: http://192.168.0.10:6700

@@ -2,6 +2,32 @@ networks:
   backend: {}
   frontend: {}
 services:
+  basket.data:
+    container_name: basketdata
+    image: redis
+    networks:
+      backend: null
+    ports:
+    - published: 6210
+      target: 6379
+  cart:
+    build:
+      context: C:\Users\Admin\Desktop\Git\WebApplication-JewelsOnContainer-MicroServices-\JewelsOnContainers\CartApi
+      dockerfile: Dockerfile
+    container_name: cartapi
+    depends_on:
+    - basket.data
+    - tokenserver
+    environment:
+      ConnectionString: basket.data
+      IdentityUrl: http://192.168.0.10:6700
+    image: jewels/cartapi
+    networks:
+      backend: null
+      frontend: null
+    ports:
+    - published: 8801
+      target: 80
   catalogservice:
     build:
       context: C:\Users\Admin\Desktop\Git\WebApplication-JewelsOnContainer-MicroServices-\JewelsOnContainers\ProductCatalogApi
@@ -61,10 +87,13 @@ services:
       dockerfile: Dockerfile
     container_name: webshop
     depends_on:
+    - cart
     - catalogservice
+    - tokenserver
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       CallBackUrl: http://localhost:5210
+      CartUrl: http://cart
       CatalogUrl: http://catalogservice
       IdentityUrl: http://192.168.0.10:6700
     image: jewels/webmvc
