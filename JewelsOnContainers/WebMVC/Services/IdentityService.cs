@@ -26,6 +26,7 @@ namespace WebMVC.Services
                     Id = claims.Claims.FirstOrDefault(x => x.Type == "sub")?.Value ?? "",
                 };
             }
+
             throw new ArgumentException(message: "The principal must be ClaimsPrincipal", paramName: nameof(principal));
         }
     }

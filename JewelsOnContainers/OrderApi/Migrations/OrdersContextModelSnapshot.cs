@@ -55,7 +55,7 @@ namespace OrderApi.Migrations
 
                     b.HasKey("OrderId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders1");
                 });
 
             modelBuilder.Entity("OrderApi.Models.OrderItem", b =>
@@ -87,7 +87,7 @@ namespace OrderApi.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("OrderItems");
+                    b.ToTable("OrderItems1");
                 });
 
             modelBuilder.Entity("OrderApi.Models.OrderItem", b =>

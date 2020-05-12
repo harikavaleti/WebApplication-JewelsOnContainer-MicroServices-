@@ -3,12 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace OrderApi.Migrations
 {
-    public partial class Initial : Migration
+    public partial class initials : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Orders",
+                name: "Orders1",
                 columns: table => new
                 {
                     OrderId = table.Column<int>(nullable: false)
@@ -25,11 +25,11 @@ namespace OrderApi.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Orders", x => x.OrderId);
+                    table.PrimaryKey("PK_Orders1", x => x.OrderId);
                 });
 
             migrationBuilder.CreateTable(
-                name: "OrderItems",
+                name: "OrderItems1",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -43,28 +43,28 @@ namespace OrderApi.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OrderItems", x => x.Id);
+                    table.PrimaryKey("PK_OrderItems1", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_OrderItems_Orders_OrderId",
+                        name: "FK_OrderItems1_Orders1_OrderId",
                         column: x => x.OrderId,
-                        principalTable: "Orders",
+                        principalTable: "Orders1",
                         principalColumn: "OrderId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderItems_OrderId",
-                table: "OrderItems",
+                name: "IX_OrderItems1_OrderId",
+                table: "OrderItems1",
                 column: "OrderId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "OrderItems");
+                name: "OrderItems1");
 
             migrationBuilder.DropTable(
-                name: "Orders");
+                name: "Orders1");
         }
     }
 }

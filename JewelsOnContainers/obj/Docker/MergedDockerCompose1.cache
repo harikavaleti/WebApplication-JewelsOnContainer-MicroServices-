@@ -1,0 +1,273 @@
+networks:
+  backend: {}
+  frontend: {}
+services:
+  basket.data:
+    container_name: basketdata
+    image: redis
+    networks:
+      backend: {}
+    ports:
+    - published: 6210
+      target: 6379
+  cart:
+    build:
+      context: C:\Users\Admin\Desktop\Git\WebApplication-JewelsOnContainer-MicroServices-\JewelsOnContainers\CartApi
+      dockerfile: Dockerfile
+      labels:
+        com.microsoft.created-by: visual-studio
+        com.microsoft.visual-studio.project-name: CartApi
+      target: base
+    container_name: cartapi
+    depends_on:
+    - basket.data
+    - rabbitmq
+    - tokenserver
+    entrypoint: tail -f /dev/null
+    environment:
+      ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS: "true"
+      ConnectionString: basket.data
+      DOTNET_USE_POLLING_FILE_WATCHER: '1'
+      IdentityUrl: http://192.168.0.10:6700
+      NUGET_FALLBACK_PACKAGES: /root/.nuget/fallbackpackages
+    image: jewels/cartapi:dev
+    labels:
+      com.microsoft.visualstudio.debuggee.arguments: ' --additionalProbingPath /root/.nuget/packages
+        --additionalProbingPath /root/.nuget/fallbackpackages  "/app/bin/Debug/netcoreapp3.1/CartApi.dll"'
+      com.microsoft.visualstudio.debuggee.killprogram: /bin/sh -c "if PID=$$(pidof
+        dotnet); then kill $$PID; fi"
+      com.microsoft.visualstudio.debuggee.program: dotnet
+      com.microsoft.visualstudio.debuggee.workingdirectory: /app
+    networks:
+      backend: {}
+      frontend: {}
+    ports:
+    - published: 8801
+      target: 80
+    tty: true
+    volumes:
+    - C:\Users\Admin\Desktop\Git\WebApplication-JewelsOnContainer-MicroServices-\JewelsOnContainers\CartApi:/app:rw
+    - C:\Users\Admin\vsdbg\vs2017u5:/remote_debugger:rw
+    - C:\Users\Admin\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\Admin\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+    - C:\Microsoft\Xamarin\NuGet:/root/.nuget/fallbackpackages:ro
+    - C:\Users\Admin\.nuget\packages:/root/.nuget/packages:ro
+    - C:\Users\Admin\Desktop\Git\WebApplication-JewelsOnContainer-MicroServices-\JewelsOnContainers\CartApi:/src:rw
+  catalogservice:
+    build:
+      context: C:\Users\Admin\Desktop\Git\WebApplication-JewelsOnContainer-MicroServices-\JewelsOnContainers\ProductCatalogApi
+      dockerfile: Dockerfile
+      labels:
+        com.microsoft.created-by: visual-studio
+        com.microsoft.visual-studio.project-name: ProductCatalogApi
+      target: base
+    container_name: jewelscatalogapi
+    depends_on:
+    - mssqlserver
+    entrypoint: tail -f /dev/null
+    environment:
+      ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS: "true"
+      DOTNET_USE_POLLING_FILE_WATCHER: '1'
+      DatabaseName: CatalogDb
+      DatabasePassword: ProductApi(!)
+      DatabaseServer: mssqlServer
+      DatabaseUser: sa
+      ExternalCatalogBaseUrl: http://localhost:8800
+      NUGET_FALLBACK_PACKAGES: /root/.nuget/fallbackpackages
+    image: jewels/catalogserviceapi:dev
+    labels:
+      com.microsoft.visualstudio.debuggee.arguments: ' --additionalProbingPath /root/.nuget/packages
+        --additionalProbingPath /root/.nuget/fallbackpackages  "/app/bin/Debug/netcoreapp3.1/ProductCatalogApi.dll"'
+      com.microsoft.visualstudio.debuggee.killprogram: /bin/sh -c "if PID=$$(pidof
+        dotnet); then kill $$PID; fi"
+      com.microsoft.visualstudio.debuggee.program: dotnet
+      com.microsoft.visualstudio.debuggee.workingdirectory: /app
+    networks:
+      backend: {}
+      frontend: {}
+    ports:
+    - published: 8800
+      target: 80
+    tty: true
+    volumes:
+    - C:\Users\Admin\Desktop\Git\WebApplication-JewelsOnContainer-MicroServices-\JewelsOnContainers\ProductCatalogApi:/app:rw
+    - C:\Users\Admin\vsdbg\vs2017u5:/remote_debugger:rw
+    - C:\Users\Admin\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\Admin\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+    - C:\Microsoft\Xamarin\NuGet:/root/.nuget/fallbackpackages:ro
+    - C:\Users\Admin\.nuget\packages:/root/.nuget/packages:ro
+    - C:\Users\Admin\Desktop\Git\WebApplication-JewelsOnContainer-MicroServices-\JewelsOnContainers\ProductCatalogApi:/src:rw
+  mssqlserver:
+    container_name: jewelssqlserver
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: ProductApi(!)
+    image: microsoft/mssql-server-linux:latest
+    networks:
+      backend: {}
+    ports:
+    - published: 1448
+      target: 1433
+  order:
+    build:
+      context: C:\Users\Admin\Desktop\Git\WebApplication-JewelsOnContainer-MicroServices-\JewelsOnContainers\OrderApi
+      dockerfile: Dockerfile
+      labels:
+        com.microsoft.created-by: visual-studio
+        com.microsoft.visual-studio.project-name: OrderApi
+      target: base
+    container_name: orderapi
+    depends_on:
+    - mssqlserver
+    - rabbitmq
+    - tokenserver
+    entrypoint: tail -f /dev/null
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS: "true"
+      DOTNET_USE_POLLING_FILE_WATCHER: '1'
+      DatabasePassword: ProductApi(!)
+      DatabaseServer: mssqlserver
+      DatabaseServerName: OrdersDb
+      DatabaseUser: sa
+      IdentityUrl: http://192.168.0.10:6700
+      NUGET_FALLBACK_PACKAGES: /root/.nuget/fallbackpackages
+    image: jewels/orderapi:dev
+    labels:
+      com.microsoft.visualstudio.debuggee.arguments: ' --additionalProbingPath /root/.nuget/packages
+        --additionalProbingPath /root/.nuget/fallbackpackages  "/app/bin/Debug/netcoreapp3.1/OrderApi.dll"'
+      com.microsoft.visualstudio.debuggee.killprogram: /bin/sh -c "if PID=$$(pidof
+        dotnet); then kill $$PID; fi"
+      com.microsoft.visualstudio.debuggee.program: dotnet
+      com.microsoft.visualstudio.debuggee.workingdirectory: /app
+    logging:
+      driver: json-file
+      options:
+        max-file: '10'
+        max-size: 200k
+    networks:
+      backend: {}
+      frontend: {}
+    ports:
+    - published: 8802
+      target: 80
+    tty: true
+    volumes:
+    - C:\Users\Admin\Desktop\Git\WebApplication-JewelsOnContainer-MicroServices-\JewelsOnContainers\OrderApi:/app:rw
+    - C:\Users\Admin\vsdbg\vs2017u5:/remote_debugger:rw
+    - C:\Users\Admin\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\Admin\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+    - C:\Microsoft\Xamarin\NuGet:/root/.nuget/fallbackpackages:ro
+    - C:\Users\Admin\.nuget\packages:/root/.nuget/packages:ro
+    - C:\Users\Admin\Desktop\Git\WebApplication-JewelsOnContainer-MicroServices-\JewelsOnContainers\OrderApi:/src:rw
+  rabbitmq:
+    container_name: rabbitmq
+    hostname: myrabbitmq
+    image: rabbitmq:3-management
+    networks:
+      backend: {}
+    ports:
+    - published: 5671
+      target: 5671
+    - published: 5672
+      target: 5672
+    - published: 15672
+      target: 15672
+    volumes:
+    - C:\Users\Admin\rabbitmq:/var/lib/rabbitmq/mnesia:rw
+  tokenserver:
+    build:
+      context: C:\Users\Admin\Desktop\Git\WebApplication-JewelsOnContainer-MicroServices-\JewelsOnContainers\TokenServiceApi
+      dockerfile: Dockerfile
+      labels:
+        com.microsoft.created-by: visual-studio
+        com.microsoft.visual-studio.project-name: TokenServiceApi
+      target: base
+    container_name: tokenserviceapi
+    depends_on:
+    - mssqlserver
+    entrypoint: tail -f /dev/null
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS: "true"
+      DOTNET_USE_POLLING_FILE_WATCHER: '1'
+      MvcClient: http://localhost:5210
+      NUGET_FALLBACK_PACKAGES: /root/.nuget/fallbackpackages
+    image: jewels/tokenapi:dev
+    labels:
+      com.microsoft.visualstudio.debuggee.arguments: ' --additionalProbingPath /root/.nuget/packages
+        --additionalProbingPath /root/.nuget/fallbackpackages  "/app/bin/Debug/netcoreapp2.1/TokenServiceApi.dll"'
+      com.microsoft.visualstudio.debuggee.killprogram: /bin/sh -c "if PID=$$(pidof
+        dotnet); then kill $$PID; fi"
+      com.microsoft.visualstudio.debuggee.program: dotnet
+      com.microsoft.visualstudio.debuggee.workingdirectory: /app
+    logging:
+      driver: json-file
+      options:
+        max-file: '10'
+        max-size: 200k
+    networks:
+      backend: {}
+      frontend: {}
+    ports:
+    - published: 6700
+      target: 80
+    tty: true
+    volumes:
+    - C:\Users\Admin\Desktop\Git\WebApplication-JewelsOnContainer-MicroServices-\JewelsOnContainers\TokenServiceApi:/app:rw
+    - C:\Users\Admin\vsdbg\vs2017u5:/remote_debugger:rw
+    - C:\Users\Admin\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\Admin\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+    - C:\Microsoft\Xamarin\NuGet:/root/.nuget/fallbackpackages:ro
+    - C:\Users\Admin\.nuget\packages:/root/.nuget/packages:ro
+    - C:\Users\Admin\Desktop\Git\WebApplication-JewelsOnContainer-MicroServices-\JewelsOnContainers\TokenServiceApi:/src:rw
+  webmvc:
+    build:
+      context: C:\Users\Admin\Desktop\Git\WebApplication-JewelsOnContainer-MicroServices-\JewelsOnContainers\webmvc
+      dockerfile: Dockerfile
+      labels:
+        com.microsoft.created-by: visual-studio
+        com.microsoft.visual-studio.project-name: WebMVC
+      target: base
+    container_name: webshop
+    depends_on:
+    - cart
+    - catalogservice
+    - order
+    - tokenserver
+    entrypoint: tail -f /dev/null
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS: "true"
+      CallBackUrl: http://localhost:5210
+      CartUrl: http://cart
+      CatalogUrl: http://catalogservice
+      DOTNET_USE_POLLING_FILE_WATCHER: '1'
+      IdentityUrl: http://192.168.0.10:6700
+      NUGET_FALLBACK_PACKAGES: /root/.nuget/fallbackpackages
+      OrderUrl: http://order
+      StripePrivateKey: sk_test_UnsaIsl4scWFMgShOGBEceec00yd02ofrX
+      StripePublicKey: pk_test_TsdrydjbF4Hoe46r6jByS7Ye00DmKSK91L
+    image: jewels/webmvc:dev
+    labels:
+      com.microsoft.visualstudio.debuggee.arguments: ' --additionalProbingPath /root/.nuget/packages
+        --additionalProbingPath /root/.nuget/fallbackpackages  "/app/bin/Debug/netcoreapp3.1/WebMVC.dll"'
+      com.microsoft.visualstudio.debuggee.killprogram: /bin/sh -c "if PID=$$(pidof
+        dotnet); then kill $$PID; fi"
+      com.microsoft.visualstudio.debuggee.program: dotnet
+      com.microsoft.visualstudio.debuggee.workingdirectory: /app
+    networks:
+      frontend: {}
+    ports:
+    - published: 5210
+      target: 80
+    tty: true
+    volumes:
+    - C:\Users\Admin\Desktop\Git\WebApplication-JewelsOnContainer-MicroServices-\JewelsOnContainers\webmvc:/app:rw
+    - C:\Users\Admin\vsdbg\vs2017u5:/remote_debugger:rw
+    - C:\Users\Admin\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\Admin\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+    - C:\Microsoft\Xamarin\NuGet:/root/.nuget/fallbackpackages:ro
+    - C:\Users\Admin\.nuget\packages:/root/.nuget/packages:ro
+    - C:\Users\Admin\Desktop\Git\WebApplication-JewelsOnContainer-MicroServices-\JewelsOnContainers\webmvc:/src:rw
+version: '3.4'

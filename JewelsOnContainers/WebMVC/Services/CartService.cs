@@ -3,12 +3,14 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebMVC.Infrastructure;
 using WebMVC.Models;
+using WebMVC.Models.OrderModels;
 
 namespace WebMVC.Services
 {
@@ -114,6 +116,28 @@ namespace WebMVC.Services
             response.EnsureSuccessStatusCode();
 
             return cart;
+        }
+
+        public Order MapCartToOrder(Cart cart)
+        {
+            var order = new Order();
+            order.OrderTotal = 0;
+
+            cart.Items.ForEach(x =>
+            {
+                order.OrderItems.Add(new OrderItem()
+                {
+                    ProductId = int.Parse(x.ProductId),
+                    PictureUrl = x.PictureUrl,
+                    ProductName = x.ProductName,
+                    Units = x.Quantity,
+                    UnitPrice = x.UnitPrice
+
+                });
+                order.OrderTotal += (x.Quantity * x.UnitPrice);
+            });
+                                   
+            return order;
         }
     }
 }

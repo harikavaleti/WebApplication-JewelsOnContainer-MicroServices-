@@ -15,6 +15,9 @@ using Microsoft.Extensions.Logging;
 using StackExchange.Redis;
 using Swashbuckle.AspNetCore.Swagger;
 using Microsoft.OpenApi.Models;
+using System.IdentityModel.Tokens.Jwt;
+using MassTransit;
+using CartApi.Messaging.Consumers;
 
 namespace CartApi
 {
@@ -30,7 +33,7 @@ namespace CartApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson();
             services.AddTransient<ICartRepository, RedisCartRepository>();
             services.AddSingleton<ConnectionMultiplexer>(cm => 
             {
@@ -46,7 +49,7 @@ namespace CartApi
             {
                 options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
                 {
-                    Title = "EventHUB - Basket API",
+                    Title = "JewelsOncontainer - Basket API",
                     Version = "v1",
                     Description = "Basket Service API"
                 });
@@ -68,10 +71,36 @@ namespace CartApi
                     }
                 });
             });
+            services.AddMassTransit(cfg =>
+            {
+                cfg.AddConsumer<OrderCompletedEventConsumer>();
+                cfg.AddBus(provider =>
+                {
+                    return Bus.Factory.CreateUsingRabbitMq(rmq =>
+                    {
+                        rmq.Host(new Uri("rabbitmq://rabbitmq"), "/", h =>
+                        {
+                            h.Username("guest");
+                            h.Password("guest");
+                        });
+                        rmq.ReceiveEndpoint("JewelscartApr20", e =>
+                        {
+                            e.ConfigureConsumer<OrderCompletedEventConsumer>(provider);
+
+                        });
+                    });
+
+                });
+            });
+
+            services.AddMassTransitHostedService();
         }
 
         private void ConfigureAuthService(IServiceCollection services)
         {
+            // prevent from mapping "sub" claim to nameidentifier.
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+
             var identityUrl = Configuration["IdentityUrl"];
             services.AddAuthentication(options =>
             {
@@ -100,6 +129,7 @@ namespace CartApi
             app.UseAuthentication();
 
             app.UseAuthorization();
+
             app.UseSwagger().UseSwaggerUI(e =>
             {
                 e.SwaggerEndpoint("/swagger/v1/swagger.json", "BasketAPI V1");

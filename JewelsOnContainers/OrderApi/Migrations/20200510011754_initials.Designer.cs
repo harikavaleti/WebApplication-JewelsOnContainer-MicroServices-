@@ -10,8 +10,8 @@ using OrderApi.Data;
 namespace OrderApi.Migrations
 {
     [DbContext(typeof(OrdersContext))]
-    [Migration("20200502022310_Initial")]
-    partial class Initial
+    [Migration("20200510011754_initials")]
+    partial class initials
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -57,7 +57,7 @@ namespace OrderApi.Migrations
 
                     b.HasKey("OrderId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders1");
                 });
 
             modelBuilder.Entity("OrderApi.Models.OrderItem", b =>
@@ -89,7 +89,7 @@ namespace OrderApi.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("OrderItems");
+                    b.ToTable("OrderItems1");
                 });
 
             modelBuilder.Entity("OrderApi.Models.OrderItem", b =>

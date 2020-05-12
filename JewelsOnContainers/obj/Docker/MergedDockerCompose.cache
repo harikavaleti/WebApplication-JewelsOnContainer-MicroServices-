@@ -17,6 +17,7 @@ services:
     container_name: cartapi
     depends_on:
     - basket.data
+    - rabbitmq
     - tokenserver
     environment:
       ConnectionString: basket.data
@@ -59,6 +60,49 @@ services:
     ports:
     - published: 1448
       target: 1433
+  order:
+    build:
+      context: C:\Users\Admin\Desktop\Git\WebApplication-JewelsOnContainer-MicroServices-\JewelsOnContainers\OrderApi
+      dockerfile: Dockerfile
+    container_name: orderapi
+    depends_on:
+    - mssqlserver
+    - rabbitmq
+    - tokenserver
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      DatabasePassword: ProductApi(!)
+      DatabaseServer: mssqlserver
+      DatabaseServerName: OrdersDb
+      DatabaseUser: sa
+      IdentityUrl: http://192.168.0.10:6700
+    image: jewels/orderapi
+    logging:
+      driver: json-file
+      options:
+        max-file: '10'
+        max-size: 200k
+    networks:
+      backend: null
+      frontend: null
+    ports:
+    - published: 8802
+      target: 80
+  rabbitmq:
+    container_name: rabbitmq
+    hostname: myrabbitmq
+    image: rabbitmq:3-management
+    networks:
+      backend: null
+    ports:
+    - published: 15672
+      target: 15672
+    - published: 5672
+      target: 5672
+    - published: 5671
+      target: 5671
+    volumes:
+    - C:\Users\Admin\rabbitmq:/var/lib/rabbitmq/mnesia:rw
   tokenserver:
     build:
       context: C:\Users\Admin\Desktop\Git\WebApplication-JewelsOnContainer-MicroServices-\JewelsOnContainers\TokenServiceApi
@@ -89,6 +133,7 @@ services:
     depends_on:
     - cart
     - catalogservice
+    - order
     - tokenserver
     environment:
       ASPNETCORE_ENVIRONMENT: Development
@@ -96,6 +141,9 @@ services:
       CartUrl: http://cart
       CatalogUrl: http://catalogservice
       IdentityUrl: http://192.168.0.10:6700
+      OrderUrl: http://order
+      StripePrivateKey: sk_test_UnsaIsl4scWFMgShOGBEceec00yd02ofrX
+      StripePublicKey: pk_test_TsdrydjbF4Hoe46r6jByS7Ye00DmKSK91L
     image: jewels/webmvc
     networks:
       frontend: null
